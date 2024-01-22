@@ -17,6 +17,10 @@ function App() {
       },
     ]);
     setAbsentCount(absentCount - 1);
+    setTimeout(() => {
+      userNameRef.current.value = null;
+      registrationNoRef.current.value = null;
+    }, 100);
   };
 
   return (
