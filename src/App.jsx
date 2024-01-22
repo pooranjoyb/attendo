@@ -4,6 +4,7 @@ import "./App.css";
 function App() {
   // const [totalstudents, setTotalstudents] = useState(20)
   const [data, setData] = useState([{}]);
+  const [absentCount, setAbsentCount] = useState(20);
   const userNameRef = useRef(null);
   const registrationNoRef = useRef(null);
 
@@ -63,7 +64,9 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold">62</span>
+                  <span className="block text-2xl font-bold">
+                    {data.length}
+                  </span>
                   <span className="block text-gray-500">Students Present</span>
                 </div>
               </div>
@@ -86,7 +89,9 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold">12</span>
+                  <span className="block text-2xl font-bold">
+                    {absentCount}
+                  </span>
                   <span className="block text-gray-500">Students Absent</span>
                 </div>
               </div>
