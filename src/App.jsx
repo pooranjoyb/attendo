@@ -3,28 +3,20 @@ import "./App.css";
 
 function App() {
   // const [totalstudents, setTotalstudents] = useState(20)
-  const [data, setData] = useState([{}]);
+  const [data, setData] = useState([]);
   const [absentCount, setAbsentCount] = useState(20);
   const userNameRef = useRef(null);
   const registrationNoRef = useRef(null);
 
-  const addStudent = () => {
-    setData((student) => [...student, {
-      Name: "Pjoy",
-      RegNo: "202100151"
-    }])
-  }
-
-  useEffect(() => {
-    addStudent();
-    console.log(data);
-  }, []);
-
-  useEffect(() => {}, data);
-
   const handleAddUser = () => {
-    console.log(userNameRef.current.value);
-    console.log(registrationNoRef.current.value);
+    setData((student) => [
+      ...student,
+      {
+        Name: userNameRef.current.value,
+        RegNo: registrationNoRef.current.value,
+      },
+    ]);
+    setAbsentCount(absentCount - 1);
   };
 
   return (
@@ -162,25 +154,28 @@ function App() {
                 </div>
                 <div className="overflow-y-auto">
                   <ul className="p-6 space-y-6">
-                    {
-                      data.map((item, index) => {
-
-                        return (
-                          <>
-                            <li className="flex items-center">
-                              <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                                <img
-                                  src="https://randomuser.me/api/portraits/men/1.jpg"
-                                  alt="Annette Watson profile picture"
-                                />
-                              </div>
-                              <span className="text-gray-600">{item.Name}</span>
-                              <span className="ml-auto font-semibold">{item.Regno}</span>
-                            </li>
-                          </>
-                        )
-                      })
-                    }
+                    {data.length === 0 ? (
+                      <li className="flex items-center">
+                        <div className="mr-3 rounded-full overflow-hidden">
+                          No User Added
+                        </div>
+                      </li>
+                    ) : (
+                      data.map((item, index) => (
+                        <li className="flex items-center" key={index}>
+                          <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                            <img
+                              src="https://randomuser.me/api/portraits/men/1.jpg"
+                              alt="Annette Watson profile picture"
+                            />
+                          </div>
+                          <span className="text-gray-600">{item.Name}</span>
+                          <span className="ml-auto font-semibold">
+                            {item.RegNo}
+                          </span>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
               </div>
