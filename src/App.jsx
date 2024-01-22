@@ -1,6 +1,37 @@
-import './App.css'
+import { useEffect, useState, useRef } from "react";
+import "./App.css";
 
 function App() {
+
+  const [data, setData] = useState([]);
+  const [absentCount, setAbsentCount] = useState(20);
+  const userNameRef = useRef(null);
+  const registrationNoRef = useRef(null);
+
+  const [classTime, setClassTime] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setClassTime(classTime + 1)
+    }, 1000);
+  }, [classTime]);
+
+  const handleAddUser = () => {
+    setData((student) => [
+      ...student,
+      {
+        Name: userNameRef.current.value,
+        RegNo: registrationNoRef.current.value,
+      },
+    ]);
+
+    setAbsentCount(absentCount - 1);
+
+    setTimeout(() => {
+      userNameRef.current.value = null;
+      registrationNoRef.current.value = null;
+    }, 100);
+  };
 
   return (
     <>
@@ -36,7 +67,9 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold">62</span>
+                  <span className="block text-2xl font-bold">
+                    {data.length}
+                  </span>
                   <span className="block text-gray-500">Students Present</span>
                 </div>
               </div>
@@ -59,7 +92,9 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold">12</span>
+                  <span className="block text-2xl font-bold">
+                    {absentCount}
+                  </span>
                   <span className="block text-gray-500">Students Absent</span>
                 </div>
               </div>
@@ -82,7 +117,7 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold">30 seconds</span>
+                  <span className="block text-2xl font-bold">{classTime} seconds</span>
                   <span className="block text-gray-500">
                     Time Spent in Class
                   </span>
@@ -100,6 +135,7 @@ function App() {
                       <input
                         className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         placeholder=""
+                        ref={userNameRef}
                       />
                       <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-blue-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Student Name
@@ -109,6 +145,7 @@ function App() {
                       <input
                         className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         placeholder=""
+                        ref={registrationNoRef}
                       />
                       <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-blue-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Registration No
@@ -117,6 +154,7 @@ function App() {
                     <button
                       className="middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                       data-ripple-light="true"
+                      onClick={handleAddUser}
                     >
                       Submit
                     </button>
@@ -130,16 +168,28 @@ function App() {
                 </div>
                 <div className="overflow-y-auto">
                   <ul className="p-6 space-y-6">
-                    <li className="flex items-center">
-                      <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/1.jpg"
-                          alt="Annette Watson profile picture"
-                        />
-                      </div>
-                      <span className="text-gray-600">Bisleri Pandey</span>
-                      <span className="ml-auto font-semibold">202100123</span>
-                    </li>
+                    {data.length === 0 ? (
+                      <li className="flex items-center">
+                        <div className="mr-3 rounded-full overflow-hidden">
+                          No User Added
+                        </div>
+                      </li>
+                    ) : (
+                      data.map((item, index) => (
+                        <li className="flex items-center" key={index}>
+                          <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                            <img
+                              src="https://randomuser.me/api/portraits/men/1.jpg"
+                              alt="Annette Watson profile picture"
+                            />
+                          </div>
+                          <span className="text-gray-600">{item.Name}</span>
+                          <span className="ml-auto font-semibold">
+                            {item.RegNo}
+                          </span>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
               </div>
@@ -151,4 +201,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
