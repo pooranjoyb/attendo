@@ -7,20 +7,20 @@ function App() {
   const [data, setData] = useState([{}])
 
   const addStudent = () => {
-    setData( student => [...student, {
-      Name : "Pjoy", 
-      RegNo : "202100151"
-    }]) 
+    setData((student) => [...student, {
+      Name: "Pjoy",
+      RegNo: "202100151"
+    }])
   }
- 
+
   useEffect(() => {
     addStudent();
     console.log(data);
   }, [])
 
   useEffect(() => {
-
-  }, data)
+    console.log(data)
+  }, [data])
 
   return (
     <>
@@ -150,16 +150,25 @@ function App() {
                 </div>
                 <div className="overflow-y-auto">
                   <ul className="p-6 space-y-6">
-                    <li className="flex items-center">
-                      <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/1.jpg"
-                          alt="Annette Watson profile picture"
-                        />
-                      </div>
-                      <span className="text-gray-600">Bisleri Pandey</span>
-                      <span className="ml-auto font-semibold">202100123</span>
-                    </li>
+                    {
+                      data.map((item, index) => {
+
+                        return (
+                          <>
+                            <li className="flex items-center">
+                              <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                                <img
+                                  src="https://randomuser.me/api/portraits/men/1.jpg"
+                                  alt="Annette Watson profile picture"
+                                />
+                              </div>
+                              <span className="text-gray-600">{item.Name}</span>
+                              <span className="ml-auto font-semibold">{item.Regno}</span>
+                            </li>
+                          </>
+                        )
+                      })
+                    }
                   </ul>
                 </div>
               </div>
