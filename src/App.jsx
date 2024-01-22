@@ -8,6 +8,14 @@ function App() {
   const userNameRef = useRef(null);
   const registrationNoRef = useRef(null);
 
+  const [classTime, setClassTime] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setClassTime(classTime + 1)
+    }, 1000);
+  }, [classTime]);
+
   const handleAddUser = () => {
     setData((student) => [
       ...student,
@@ -16,7 +24,9 @@ function App() {
         RegNo: registrationNoRef.current.value,
       },
     ]);
+
     setAbsentCount(absentCount - 1);
+
     setTimeout(() => {
       userNameRef.current.value = null;
       registrationNoRef.current.value = null;
@@ -107,7 +117,7 @@ function App() {
                   </svg>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold">30 seconds</span>
+                  <span className="block text-2xl font-bold">{classTime} seconds</span>
                   <span className="block text-gray-500">
                     Time Spent in Class
                   </span>
